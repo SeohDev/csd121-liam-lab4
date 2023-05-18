@@ -1,0 +1,7 @@
+Place your solution to Programming Project 1.6 here.
+
+1. Check for lawnmower's direction and rotate it accordingly so it can mow the rest of the lawn
+2. Check for lawnmower's position and determine whether the mower can move in a certain direction or not.
+3. Replace the ground tiles with mowed grass tiles when the mower passes over them.
+4. If mower hits a spot where it cant move in the direction it is facing, turn the mower accordingly
+   and take into account where the nearest unmowed tile is, repeat until all tiles are mowed.
