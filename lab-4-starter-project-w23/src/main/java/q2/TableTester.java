@@ -2,7 +2,6 @@ package main.java.q2;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import main.java.test.TestHelper;
 
 public class TableTester {
 
@@ -10,172 +9,171 @@ public class TableTester {
         test_Table_initializesCorrectly();
         test_Table_canHandleFewerNumbersThanNumberOfSpaces();
         test_Table_canHandleMoreNumbersThanNumberOfSpaces();
-
         test_getRows();
         test_getCols();
-
         test_set();
         test_get();
-
+        test_toString();
         test_equalityWithAnotherTable();
         test_inequalityWithAnotherTable();
-
         test_equalityWith2dArray();
         test_inequalityWith2dArray();
-
         test_as2dList();
-
-        test_toString();
     }
 
     private static void test_Table_initializesCorrectly() {
-        int[][] expectedData = {
-                {1, 2, 3},
-                {4, 5, 6}
-        };
-
-        Table t = new Table(2, 3, new int[] {1, 2, 3, 4, 5, 6});
-        if (!equals(expectedData, t.getData())) {
-            TestHelper.failMessage("Table constructor does not initialize the table correctly");
+        Table t = new Table(2, 3, new int[]{1, 2, 3, 4, 5, 6});
+        int[][] expectedData = {{1, 2, 3}, {4, 5, 6}};
+        if (arrayEquals(t.getData(), expectedData)) {
+            System.out.println("test_Table_initializesCorrectly passed");
         } else {
-            TestHelper.passMessage("Table constructor initializes the table correctly");
+            System.out.println("test_Table_initializesCorrectly failed");
         }
     }
 
     private static void test_Table_canHandleFewerNumbersThanNumberOfSpaces() {
-        int[][] expectedData = {
-                {1, 2, 0},
-                {4, 0, 0}
-        };
-
-        Table t = new Table(2, 3, new int[] {1, 2, 4});
-        if (!equals(expectedData, t.getData())) {
-            TestHelper.failMessage("Table constructor does not handle fewer numbers than the table has space for correctly");
+        Table t = new Table(2, 3, new int[]{1});
+        int[][] expectedData = {{1, 0, 0}, {0, 0, 0}};
+        if (arrayEquals(t.getData(), expectedData)) {
+            System.out.println("test_Table_canHandleFewerNumbersThanNumberOfSpaces passed");
         } else {
-            TestHelper.passMessage("Table constructor handles fewer numbers than the table has space for correctly");
+            System.out.println("test_Table_canHandleFewerNumbersThanNumberOfSpaces failed");
         }
     }
 
     private static void test_Table_canHandleMoreNumbersThanNumberOfSpaces() {
-        int[][] expectedData = {
-                {1, 2, 3},
-                {4, 5, 6}
-        };
-
-        Table t = new Table(2, 3, new int[] {1, 2, 3, 4, 5, 6, 7, 8});
-        if (!equals(expectedData, t.getData())) {
-            TestHelper.failMessage("Table constructor does not handle more numbers than the table has space for correctly");
+        Table t = new Table(2, 3, new int[]{1, 2, 3, 4, 5, 6, 7});
+        int[][] expectedData = {{1, 2, 3}, {4, 5, 6}};
+        if (arrayEquals(t.getData(), expectedData)) {
+            System.out.println("test_Table_canHandleMoreNumbersThanNumberOfSpaces passed");
         } else {
-            TestHelper.passMessage("Table constructor handles more numbers than the table has space for correctly");
+            System.out.println("test_Table_canHandleMoreNumbersThanNumberOfSpaces failed");
         }
     }
 
     private static void test_getRows() {
-        Table t = new Table(2, 3);
-        if (t.getRows() != 2) {
-            TestHelper.failMessage("getRows method does not return the expected value");
+        Table t = new Table(3, 2, new int[]{1, 2, 3, 4, 5, 6});
+        if (t.getRows() == 3) {
+            System.out.println("test_getRows passed");
         } else {
-            TestHelper.passMessage("getRows method returns the expected value");
+            System.out.println("test_getRows failed");
         }
     }
 
     private static void test_getCols() {
-        Table t = new Table(2, 3);
-        if (t.getCols() != 3) {
-            TestHelper.failMessage("getCols method does not return the expected value");
+        Table t = new Table(3, 2, new int[]{1, 2, 3, 4, 5, 6});
+        if (t.getCols() == 2) {
+            System.out.println("test_getCols passed");
         } else {
-            TestHelper.passMessage("getCols method returns the expected value");
+            System.out.println("test_getCols failed");
         }
     }
 
     private static void test_set() {
-        Table t = new Table(2, 3);
-        t.set(1, 2, 5);
-        int[][] expectedData = {
-                {0, 0, 0},
-                {0, 5, 0}
-        };
-
-        if (!equals(expectedData, t.getData())) {
-            TestHelper.failMessage("set method does not set the correct value in the Table");
+        Table t = new Table(2, 2, new int[]{1, 2, 3, 4});
+        t.set(1, 1, 5);
+        int[][] expectedData = {{1, 2}, {3, 5}};
+        if (arrayEquals(t.getData(), expectedData)) {
+            System.out.println("test_set passed");
         } else {
-            TestHelper.passMessage("set method sets the correct value in the Table");
+            System.out.println("test_set failed");
         }
     }
 
     private static void test_get() {
-        Table t = new Table(2, 3, new int[] {1, 2, 3, 4, 5, 6});
-        if (t.get(1, 2) != 6) {
-            TestHelper.failMessage("get method does not return the expected value");
+        Table t = new Table(2, 2, new int[]{1, 2, 3, 4});
+        if (t.get(1, 1) == 4) {
+            System.out.println("test_get passed");
         } else {
-            TestHelper.passMessage("get method returns the expected value");
+            System.out.println("test_get failed");
         }
     }
 
-    public static void test_toString() {
-        Table t = new Table(2, 3, new int[] {1, 2, 3, 4, 5, 6});
-        String expectedString = "1 2 3\n4 5 6\n";
-
-        if (!expectedString.equals(t.toString())) {
-            TestHelper.failMessage("toString method does not return the expected string");
+    private static void test_toString() {
+        Table t = new Table(3, 2, new int[]{1, 2, 3, 4, 5, 6});
+        String expectedString = "1 2\n3 4\n5 6";
+        if (t.toString().equals(expectedString)) {
+            System.out.println("test_toString passed");
         } else {
-            TestHelper.passMessage("toString method returns the expected string");
+            System.out.println("test_toString failed");
         }
     }
 
-    public static void test_equalityWithAnotherTable() {
-        Table t1 = new Table(2, 3, new int[] {1, 2, 3, 4, 5, 6});
-        Table t2 = new Table(2, 3, new int[] {1, 2, 3, 4, 5, 6});
-
-        if (!t1.equals(t2)) {
-            TestHelper.failMessage("equals method does not evaluate two different tables with the same set of values as equal");
-        } else {
-            TestHelper.passMessage("equals method evaluates two different tables with the same set of values as equal");
-        }
-    }
-
-    public static void test_inequalityWithAnotherTable() {
-        Table t1 = new Table(2, 3, new int[] {1, 2, 3, 4, 5, 6});
-        Table t2 = new Table(2, 3, new int[] {2, 2, 3, 4, 5, 6});
-
+    private static void test_equalityWithAnotherTable() {
+        Table t1 = new Table(2, 2, new int[]{1, 2, 3, 4});
+        Table t2 = new Table(2, 2, new int[]{1, 2, 3, 4});
         if (t1.equals(t2)) {
-            TestHelper.failMessage("equals method incorrectly evaluates two different tables with a different set of values as equal");
+            System.out.println("test_equalityWithAnotherTable passed");
         } else {
-            TestHelper.passMessage("equals method correctly evaluates two different tables with a different set of values as not equal");
+            System.out.println("test_equalityWithAnotherTable failed");
         }
     }
 
-    public static void test_equalityWith2dArray() {
-        Table t1 = new Table(2, 3, new int[] {1, 2, 3, 4, 5, 6});
-        int[][] arr = new int[][] {{1, 2, 3}, {4, 5, 6}};
-
-        if (!t1.equals(arr)) {
-            TestHelper.failMessage("equals(int[][]) fails to equate a 2d array with an equivalent Table");
+    private static void test_inequalityWithAnotherTable() {
+        Table t1 = new Table(2, 2, new int[]{1, 2, 3, 4});
+        Table t2 = new Table(2, 2, new int[]{1, 2, 3, 5});
+        if (!t1.equals(t2)) {
+            System.out.println("test_inequalityWithAnotherTable passed");
         } else {
-            TestHelper.passMessage("equals(int[][]) detects equality");
+            System.out.println("test_inequalityWithAnotherTable failed");
         }
     }
 
-    public static void test_inequalityWith2dArray() {
-        Table t1 = new Table(2, 3, new int[] {1, 2, 3, 4, 5, 6});
-        int[][] arr = new int[][] {{2, 2, 3}, {4, 5, 6}};
-
-        if (t1.equals(arr)) {
-            TestHelper.failMessage("equals(int[][]) reports equality with a 2d array when it should NOT");
+    private static void test_equalityWith2dArray() {
+        Table t = new Table(2, 2, new int[]{1, 2, 3, 4});
+        int[][] array = {{1, 2}, {3, 4}};
+        if (t.equals(array)) {
+            System.out.println("test_equalityWith2dArray passed");
         } else {
-            TestHelper.passMessage("equals(int[][]) detects inequality");
+            System.out.println("test_equalityWith2dArray failed");
         }
     }
 
-    public static void test_as2dList() {
-        Table t = new Table(2, 3, new int[] {1, 2, 3, 4, 5, 6});
+    private static void test_inequalityWith2dArray() {
+        Table t = new Table(2, 2, new int[]{1, 2, 3, 4});
+        int[][] array = {{1, 2}, {3, 5}};
+        if (!t.equals(array)) {
+            System.out.println("test_inequalityWith2dArray passed");
+        } else {
+            System.out.println("test_inequalityWith2dArray failed");
+        }
+    }
+
+    private static void test_as2dList() {
+        Table t = new Table(2, 2, new int[]{1, 2, 3, 4});
         ArrayList<ArrayList<Integer>> expectedList = new ArrayList<>();
-        expectedList.add(new ArrayList<>(Arrays.asList(1, 2, 3)));
-        expectedList.add(new ArrayList<>(Arrays.asList(4, 5, 6)));
-
-        if (!equals(expectedList, t.as2dList())) {
-            TestHelper.failMessage("as2dList method does not return the expected ArrayList of ArrayLists");
+        expectedList.add(new ArrayList<>(Arrays.asList(1, 2)));
+        expectedList.add(new ArrayList<>(Arrays.asList(3, 4)));
+        if (listEquals(t.as2dList(), expectedList)) {
+            System.out.println("test_as2dList passed");
         } else {
-            TestHelper.passMessage("as2dList method returns the expected ArrayList of ArrayLists");
+            System.out.println("test_as2dList failed");
         }
     }
+
+    private static boolean arrayEquals(int[][] a1, int[][] a2) {
+        if (a1.length != a2.length || a1[0].length != a2[0].length) {
+            return false;
+        }
+        for (int i = 0; i < a1.length; i++) {
+            for (int j = 0; j < a1[0].length; j++) {
+                if (a1[i][j] != a2[i][j]) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private static boolean listEquals(ArrayList<ArrayList<Integer>> list1, ArrayList<ArrayList<Integer>> list2) {
+        if (list1.size() != list2.size()) {
+            return false;
+        }
+        for (int i = 0; i < list1.size(); i++) {
+            if (!list1.get(i).equals(list2.get(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
